@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tweets</title>
+</head>
+<body>
+  <h1>Tweets</h1>
+
+  <form id="tweet-form">
+    <input type="text" id="autor" placeholder="Autor" required />
+    <input type="text" id="inhalt" placeholder="Inhalt" required />
+    <button type="submit">Tweet hinzufügen</button>
+  </form>
+
+  <ul id="tweet-list"></ul>
+
+  <script>
+    async function ladeTweets() {
+      const res = await fetch('/api/tweets');
+      const tweets = await res.json();
+      const list = document.getElementById('tweet-list');
+      list.innerHTML = '';
+      tweets.forEach(tweet => {
+        const li = document.createElement('li');
+        li.textContent = `${tweet.autor} (${tweet.datum}): ${tweet.inhalt}`;
+        list.appendChild(li);
+      });
+    }
+
+    document.getElementById('tweet-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const autor = document.getElementById('autor').value;
+      const inhalt = document.getElementById('inhalt').value;
+
+      const res = await fetch('/api/tweets', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ autor, inhalt })
+      });
+
+      if (res.ok) {
+        document.getElementById('autor').value = '';
+        document.getElementById('inhalt').value = '';
+        ladeTweets();
+      } else {
+        alert('Fehler beim Hinzufügen des Tweets');
+      }
+    });
+
+    ladeTweets();
+  </script>
+</body>
+</html>

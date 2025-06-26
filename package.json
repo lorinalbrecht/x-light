@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "setup-db": "node db/setup.js"
+    "setup-db": "node db/setup.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/lorinalbrecht/x-light#readme",
   "dependencies": {
-    "better-sqlite3": "^12.1.1"
+    "better-sqlite3": "^12.1.1",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
   }
 }
