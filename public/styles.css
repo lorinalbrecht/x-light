@@ -22,6 +22,31 @@ h1 {
   max-width: 600px;
 }
 
+/* Toggle-Leiste */
+.form-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background: white;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 0.75rem;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.form-toggle:hover {
+  background: #f0f4f8;
+}
+
+#toggle-arrow {
+  font-size: 1.2rem;
+  transition: transform 0.3s;
+}
+
+/* Formular */
 form {
   background: white;
   padding: 1.5rem;
@@ -59,6 +84,12 @@ form button:hover {
   background-color: #3b7dd8;
 }
 
+/* Einklappen */
+form.collapsed {
+  display: none;
+}
+
+/* Tweet Cards */
 .tweet-list {
   display: flex;
   flex-direction: column;

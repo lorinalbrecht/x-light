@@ -2,14 +2,19 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Tweets</title>
+  <title>X Light</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <h1>Tweets</h1>
 
   <div class="container">
-    <form id="tweet-form">
+    <div class="form-toggle" id="form-toggle">
+      <span>Tweet erstellen</span>
+      <span id="toggle-arrow">▼</span>
+    </div>
+
+    <form id="tweet-form" class="collapsed">
       <input type="text" id="autor" placeholder="Autor" required />
       <input type="text" id="inhalt" placeholder="Inhalt" required />
       <button type="submit">Tweet hinzufügen</button>
@@ -18,44 +23,6 @@
     <div id="tweet-list" class="tweet-list"></div>
   </div>
 
-  <script>
-    async function ladeTweets() {
-      const res = await fetch('/api/tweets');
-      const tweets = await res.json();
-      const list = document.getElementById('tweet-list');
-      list.innerHTML = '';
-      tweets.forEach(tweet => {
-        const el = document.createElement('div');
-        el.className = 'tweet';
-        el.innerHTML = `
-          <div class="meta">${tweet.autor} – ${new Date(tweet.datum).toLocaleString()}</div>
-          <div class="inhalt">${tweet.inhalt}</div>
-        `;
-        list.appendChild(el);
-      });
-    }
-
-    document.getElementById('tweet-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const autor = document.getElementById('autor').value;
-      const inhalt = document.getElementById('inhalt').value;
-
-      const res = await fetch('/api/tweets', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ autor, inhalt })
-      });
-
-      if (res.ok) {
-        document.getElementById('autor').value = '';
-        document.getElementById('inhalt').value = '';
-        ladeTweets();
-      } else {
-        alert('Fehler beim Hinzufügen des Tweets');
-      }
-    });
-
-    ladeTweets();
-  </script>
+  <script src="script.js" defer></script>
 </body>
 </html>
