@@ -3,17 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <title>Tweets</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <h1>Tweets</h1>
 
-  <form id="tweet-form">
-    <input type="text" id="autor" placeholder="Autor" required />
-    <input type="text" id="inhalt" placeholder="Inhalt" required />
-    <button type="submit">Tweet hinzufügen</button>
-  </form>
+  <div class="container">
+    <form id="tweet-form">
+      <input type="text" id="autor" placeholder="Autor" required />
+      <input type="text" id="inhalt" placeholder="Inhalt" required />
+      <button type="submit">Tweet hinzufügen</button>
+    </form>
 
-  <ul id="tweet-list"></ul>
+    <div id="tweet-list" class="tweet-list"></div>
+  </div>
 
   <script>
     async function ladeTweets() {
@@ -22,9 +25,13 @@
       const list = document.getElementById('tweet-list');
       list.innerHTML = '';
       tweets.forEach(tweet => {
-        const li = document.createElement('li');
-        li.textContent = `${tweet.autor} (${tweet.datum}): ${tweet.inhalt}`;
-        list.appendChild(li);
+        const el = document.createElement('div');
+        el.className = 'tweet';
+        el.innerHTML = `
+          <div class="meta">${tweet.autor} – ${new Date(tweet.datum).toLocaleString()}</div>
+          <div class="inhalt">${tweet.inhalt}</div>
+        `;
+        list.appendChild(el);
       });
     }
 
