@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "setup-db": "node db/setup.js",
-    "start": "node server.js"
+    "setup-db": "node src/setup.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
